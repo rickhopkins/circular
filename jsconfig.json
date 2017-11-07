@@ -1,0 +1,9 @@
+{
+	"compilerOptions": {
+		"target": "es6",
+		"experimentalDecorators": true
+	},
+	"files": [
+		"./components/my-test-component/my-test-component.js"
+	]
+}

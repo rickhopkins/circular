@@ -1,0 +1,15 @@
+{
+	"presets": [
+		[
+			"env",
+			{
+				"modules": false
+			}
+		]
+	],
+	"plugins": [
+		"transform-decorators-legacy",
+		"transform-custom-element-classes",
+		"transform-es2015-classes"
+	]
+}
