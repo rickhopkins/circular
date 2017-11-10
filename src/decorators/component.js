@@ -1,15 +1,9 @@
+/** get the html template parser */
+import { parse } from '../parser';
+
 /** export the decorator */
 export function Component(config) {
 	return function(componentDef) {
-		/** add methods to the component definition */
-		componentDef.componentRef = null;
-		componentDef.prototype.getAttribute = function(attr) {
-			return componentDef.componentRef.attributes.getNamedItem(attr).value;
-		}
-		componentDef.prototype.shadowRoot = function() {
-			return componentDef.componentRef.shadowRoot;
-		}
-
 		/** create the class */
 		var component = class extends HTMLElement {
 			/** static array of observed attributes */
@@ -30,20 +24,34 @@ export function Component(config) {
 				this.styleUrl = config.styleUrl || null;
 
 				/** add a static reference to the component */
-				componentDef.componentRef = this;
+				componentDef.prototype.componentRef = this;
+				componentDef.prototype.template = config.template;
 				this.componentDef = new componentDef();
 			}
 
 			/** respond to attribute changes */
 			attributeChangedCallback(attr, oldValue, newValue) {
-				console.log([attr, oldValue, newValue]);
+				//console.log([attr, oldValue, newValue]);
+				this.componentDef.build();
 			}
+		}
 
-			/** empty the element */
-			empty() {
-				while (this.shadowRoot.firstChild) {
-					this.removeChild(this.shadowRoot.firstChild);
-				}
+		/** add methods to the component definition */
+		componentDef.prototype.template = null;
+		componentDef.prototype.componentRef = null;
+		componentDef.prototype.getAttribute = function(attr) {
+			return this.componentRef.attributes.getNamedItem(attr).value;
+		}
+		componentDef.prototype.shadowRoot = function() {
+			return this.componentRef.shadowRoot;
+		}
+		componentDef.prototype.build = function() {
+			var html = parse(this.componentRef.template, this);
+			this.shadowRoot().innerHTML = html;
+		}
+		componentDef.prototype.empty = function() {
+			while (this.shadowRoot().firstChild) {
+				this.shadowRoot().removeChild(this.shadowRoot().firstChild);
 			}
 		}
 
