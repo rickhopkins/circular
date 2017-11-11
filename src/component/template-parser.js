@@ -1,6 +1,12 @@
-export function parse(template, componentRef) {
-	debugger;
+/** attributes we look for */
+var circularAttrs = {
+	'cr-for': '',
+	'cr-if': '',
+	'cr-class': '',
+	'cr-click': ''
+};
 
+export function templateParser(template, component) {
 	/** search for circular attributes */
 	var container = document.createElement('template');
 	container.innerHTML = template;
@@ -10,6 +16,8 @@ export function parse(template, componentRef) {
 
 	var crForAttrVal = crFor.getAttribute('cr-for');
 	console.log(crForAttrVal);
+
+	console.log(component);
 
 	return container.innerHTML;
 }

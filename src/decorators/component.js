@@ -1,11 +1,14 @@
-/** get the html template parser */
-import { parse } from '../parser';
+/** get the component extender */
+import { extendComponent } from '../component/extend-component';
 
 /** export the decorator */
 export function Component(config) {
-	return function(componentDef) {
+	return function(component) {
+		/** extend the component */
+		extendComponent(component);
+
 		/** create the class */
-		var component = class extends HTMLElement {
+		var componentEl = class extends HTMLElement {
 			/** static array of observed attributes */
 			static get observedAttributes() { return config.attributes || []; }
 
@@ -23,39 +26,22 @@ export function Component(config) {
 				this.template = config.template || null;
 				this.styleUrl = config.styleUrl || null;
 
-				/** add a static reference to the component */
-				componentDef.prototype.componentRef = this;
-				componentDef.prototype.template = config.template;
-				this.componentDef = new componentDef();
+				/** add reference to the component and template */
+				component.prototype.componentEl = this;
+				component.prototype.template = config.template;
+
+				/** initialize the component and build */
+				this.component = new component();
+				this.component.build();
 			}
 
 			/** respond to attribute changes */
 			attributeChangedCallback(attr, oldValue, newValue) {
-				//console.log([attr, oldValue, newValue]);
-				this.componentDef.build();
-			}
-		}
-
-		/** add methods to the component definition */
-		componentDef.prototype.template = null;
-		componentDef.prototype.componentRef = null;
-		componentDef.prototype.getAttribute = function(attr) {
-			return this.componentRef.attributes.getNamedItem(attr).value;
-		}
-		componentDef.prototype.shadowRoot = function() {
-			return this.componentRef.shadowRoot;
-		}
-		componentDef.prototype.build = function() {
-			var html = parse(this.componentRef.template, this);
-			this.shadowRoot().innerHTML = html;
-		}
-		componentDef.prototype.empty = function() {
-			while (this.shadowRoot().firstChild) {
-				this.shadowRoot().removeChild(this.shadowRoot().firstChild);
+				console.log(`Attribute "${attr}" updated from ${oldValue} to ${newValue}`);
 			}
 		}
 
 		/** register the custom component */
-		customElements.define(config.selector, component);
+		customElements.define(config.selector, componentEl);
 	}
 }

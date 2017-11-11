@@ -2,13 +2,13 @@ import { Component } from '../../src/decorators/component';
 
 @Component({
 	selector: 'my-test-component',
-	templateUrl: './my-test-component.html',
+	// templateUrl: './my-test-component.html',
 	template: `
 		<div cr-for="d in data">
 			Hello! My name is {{d.name}}: {{d.id}}
 		</div>
 	`,
-	styleUrl: './my-test-component.css',
+	// styleUrl: './my-test-component.css',
 	attributes: ['name']
 })
 class MyTestElement {
