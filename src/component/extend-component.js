@@ -6,6 +6,7 @@ import { debug } from 'util';
 export function extendComponent(component) {
 	/** public properties */
 	component.prototype.template = null;
+	component.prototype.styles = null;
 	component.prototype.componentEl = null;
 
 	/** public methods */
@@ -22,7 +23,7 @@ export function extendComponent(component) {
 
 	/** build the component html */
 	component.prototype.build = function() {
-		var html = templateParser(this.template, this);
+		var html = templateParser(this);
 		this.root().innerHTML = html;
 	}
 

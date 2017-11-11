@@ -1,5 +1,6 @@
 /** get the component extender */
 import { extendComponent } from '../component/extend-component';
+import { debug } from 'util';
 
 /** export the decorator */
 export function Component(config) {
@@ -21,14 +22,22 @@ export function Component(config) {
 				this.attachShadow({ mode: 'open' });
 
 				/** public properties */
-				this.selector = config.selector;
-				this.templateUrl = config.templateUrl || null;
-				this.template = config.template || null;
 				this.styleUrl = config.styleUrl || null;
 
-				/** add reference to the component and template */
+				/** add reference to the component */
 				component.prototype.componentEl = this;
-				component.prototype.template = config.template;
+
+				/** set the template */
+				if (config.template && config.template !== null) {
+					component.prototype.template = config.template;
+				} else if (config.templateUrl && config.templateUrl !== null) {
+					component.prototype.template = config.templateUrl;
+				} else {
+					throw 'No template specified for component';
+				}
+
+				/** set styles */
+				if (config.styleUrl !== null) component.prototype.styles = config.styleUrl;
 
 				/** initialize the component and build */
 				this.component = new component();

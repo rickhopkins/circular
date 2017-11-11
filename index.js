@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -68,35 +68,10 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__src_decorators_component__ = __webpack_require__(1);
-var _dec, _class;
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-
-
-var MyTestElement = (_dec = Object(__WEBPACK_IMPORTED_MODULE_0__src_decorators_component__["a" /* Component */])({
-	selector: 'my-test-component',
-	// templateUrl: './my-test-component.html',
-	template: '\n\t\t<div cr-for="d in data">\n\t\t\tHello! My name is {{d.name}}: {{d.id}}\n\t\t</div>\n\t',
-	// styleUrl: './my-test-component.css',
-	attributes: ['name']
-}), _dec(_class = function MyTestElement() {
-	_classCallCheck(this, MyTestElement);
-
-	/** public properties */
-	this.name = this.getAttribute('name');
-	this.data = [{ 'id': 0, 'name': 'Rick Hopkins', selected: true }, { 'id': 1, 'name': 'Nicole Hopkins', selected: true }, { 'id': 2, 'name': 'Derek Hopkins', selected: true }, { 'id': 3, 'name': 'Grace Hopkins', selected: true }, { 'id': 4, 'name': 'Jack Hopkins', selected: true }, { 'id': 5, 'name': 'Nevaeh Hopkins', selected: true }, { 'id': 6, 'name': 'Brock Hopkins', selected: true }, { 'id': 7, 'name': 'Mya Hopkins', selected: true }];
-}) || _class);
-
-/***/ }),
-/* 1 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = Component;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__component_extend_component__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__component_extend_component__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_util__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_util___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_util__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -113,6 +88,7 @@ function _CustomElement() {
 Object.setPrototypeOf(_CustomElement.prototype, HTMLElement.prototype);
 Object.setPrototypeOf(_CustomElement, HTMLElement);
 /** get the component extender */
+
 
 
 /** export the decorator */
@@ -148,14 +124,22 @@ function Component(config) {
 				_this.attachShadow({ mode: 'open' });
 
 				/** public properties */
-				_this.selector = config.selector;
-				_this.templateUrl = config.templateUrl || null;
-				_this.template = config.template || null;
 				_this.styleUrl = config.styleUrl || null;
 
-				/** add reference to the component and template */
+				/** add reference to the component */
 				component.prototype.componentEl = _this;
-				component.prototype.template = config.template;
+
+				/** set the template */
+				if (config.template && config.template !== null) {
+					component.prototype.template = config.template;
+				} else if (config.templateUrl && config.templateUrl !== null) {
+					component.prototype.template = config.templateUrl;
+				} else {
+					throw 'No template specified for component';
+				}
+
+				/** set styles */
+				if (config.styleUrl !== null) component.prototype.styles = config.styleUrl;
 
 				/** initialize the component and build */
 				_this.component = new component();
@@ -182,82 +166,7 @@ function Component(config) {
 }
 
 /***/ }),
-/* 2 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = extendComponent;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__template_parser__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_util__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_util___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_util__);
-/** get the html template parser */
-
-
-
-/** extend a component */
-function extendComponent(component) {
-	/** public properties */
-	component.prototype.template = null;
-	component.prototype.componentEl = null;
-
-	/** public methods */
-
-	/** retrieve an attribute value */
-	component.prototype.getAttribute = function (attr) {
-		return this.componentEl.attributes.getNamedItem(attr).value;
-	};
-
-	/** get the root of the element */
-	component.prototype.root = function () {
-		return this.componentEl.shadowRoot;
-	};
-
-	/** build the component html */
-	component.prototype.build = function () {
-		var html = Object(__WEBPACK_IMPORTED_MODULE_0__template_parser__["a" /* templateParser */])(this.template, this);
-		this.root().innerHTML = html;
-	};
-
-	/** empty the component */
-	component.prototype.empty = function () {
-		while (this.root().firstChild) {
-			this.root().removeChild(this.root().firstChild);
-		}
-	};
-}
-
-/***/ }),
-/* 3 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = templateParser;
-/** attributes we look for */
-var circularAttrs = {
-	'cr-for': '',
-	'cr-if': '',
-	'cr-class': '',
-	'cr-click': ''
-};
-
-function templateParser(template, component) {
-	/** search for circular attributes */
-	var container = document.createElement('template');
-	container.innerHTML = template;
-
-	var crFor = container.content.querySelector('[cr-for]');
-	console.log(crFor);
-
-	var crForAttrVal = crFor.getAttribute('cr-for');
-	console.log(crForAttrVal);
-
-	console.log(component);
-
-	return container.innerHTML;
-}
-
-/***/ }),
-/* 4 */
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -785,7 +694,7 @@ function isPrimitive(arg) {
 }
 exports.isPrimitive = isPrimitive;
 
-exports.isBuffer = __webpack_require__(7);
+exports.isBuffer = __webpack_require__(9);
 
 function objectToString(o) {
   return Object.prototype.toString.call(o);
@@ -829,7 +738,7 @@ exports.log = function() {
  *     prototype.
  * @param {function} superCtor Constructor function to inherit prototype from.
  */
-exports.inherits = __webpack_require__(8);
+exports.inherits = __webpack_require__(10);
 
 exports._extend = function(origin, add) {
   // Don't do anything if add isn't an object
@@ -847,10 +756,134 @@ function hasOwnProperty(obj, prop) {
   return Object.prototype.hasOwnProperty.call(obj, prop);
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(6)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7), __webpack_require__(8)))
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_index__ = __webpack_require__(3);
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_my_title_my_title_component__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_my_test_my_test_component__ = __webpack_require__(11);
+/* unused harmony reexport MyTitleComponent */
+/* unused harmony reexport MyTestComponent */
+
+
+
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export MyTitleComponent */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__src_decorators_component__ = __webpack_require__(0);
+var _dec, _class;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+var MyTitleComponent = (_dec = Object(__WEBPACK_IMPORTED_MODULE_0__src_decorators_component__["a" /* Component */])({
+	selector: 'my-title',
+	template: '<h1>I\'m A Custom Title Component</h1>'
+}), _dec(_class = function MyTitleComponent() {
+	_classCallCheck(this, MyTitleComponent);
+}) || _class);
 
 /***/ }),
 /* 5 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = extendComponent;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__template_parser__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_util__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_util___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_util__);
+/** get the html template parser */
+
+
+
+/** extend a component */
+function extendComponent(component) {
+	/** public properties */
+	component.prototype.template = null;
+	component.prototype.styles = null;
+	component.prototype.componentEl = null;
+
+	/** public methods */
+
+	/** retrieve an attribute value */
+	component.prototype.getAttribute = function (attr) {
+		return this.componentEl.attributes.getNamedItem(attr).value;
+	};
+
+	/** get the root of the element */
+	component.prototype.root = function () {
+		return this.componentEl.shadowRoot;
+	};
+
+	/** build the component html */
+	component.prototype.build = function () {
+		var html = Object(__WEBPACK_IMPORTED_MODULE_0__template_parser__["a" /* templateParser */])(this);
+		this.root().innerHTML = html;
+	};
+
+	/** empty the component */
+	component.prototype.empty = function () {
+		while (this.root().firstChild) {
+			this.root().removeChild(this.root().firstChild);
+		}
+	};
+}
+
+/***/ }),
+/* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = templateParser;
+/** attributes we look for */
+var circularAttrs = {
+	'cr-for': '',
+	'cr-if': '',
+	'cr-class': '',
+	'cr-click': ''
+};
+
+function templateParser(component) {
+	/** search for circular attributes */
+	var container = document.createElement('template');
+
+	/** check for styles */
+	var innerHTML = '';
+	if (component.styles !== null) innerHTML = '<style>' + component.styles + '</style>';
+	innerHTML += component.template;
+	container.innerHTML = innerHTML;
+
+	// var crFor = container.content.querySelector('[cr-for]');
+	// console.log(crFor);
+
+	// var crForAttrVal = crFor.getAttribute('cr-for');
+	// console.log(crForAttrVal);
+
+	console.log(component);
+
+	return container.innerHTML;
+}
+
+/***/ }),
+/* 7 */
 /***/ (function(module, exports) {
 
 var g;
@@ -877,7 +910,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 6 */
+/* 8 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -1067,7 +1100,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 7 */
+/* 9 */
 /***/ (function(module, exports) {
 
 module.exports = function isBuffer(arg) {
@@ -1078,7 +1111,7 @@ module.exports = function isBuffer(arg) {
 }
 
 /***/ }),
-/* 8 */
+/* 10 */
 /***/ (function(module, exports) {
 
 if (typeof Object.create === 'function') {
@@ -1103,6 +1136,134 @@ if (typeof Object.create === 'function') {
     ctor.prototype = new TempCtor()
     ctor.prototype.constructor = ctor
   }
+}
+
+
+/***/ }),
+/* 11 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export MyTestComponent */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__src_decorators_component__ = __webpack_require__(0);
+var _dec, _class;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+var MyTestComponent = (_dec = Object(__WEBPACK_IMPORTED_MODULE_0__src_decorators_component__["a" /* Component */])({
+	selector: 'my-test',
+	templateUrl: __webpack_require__(12),
+	styleUrl: __webpack_require__(13),
+	attributes: ['name']
+}), _dec(_class = function MyTestComponent() {
+	_classCallCheck(this, MyTestComponent);
+
+	/** public properties */
+	this.name = this.getAttribute('name');
+	this.data = [{ 'id': 0, 'name': 'Rick Hopkins', selected: true }, { 'id': 1, 'name': 'Nicole Hopkins', selected: true }, { 'id': 2, 'name': 'Derek Hopkins', selected: true }, { 'id': 3, 'name': 'Grace Hopkins', selected: true }, { 'id': 4, 'name': 'Jack Hopkins', selected: true }, { 'id': 5, 'name': 'Nevaeh Hopkins', selected: true }, { 'id': 6, 'name': 'Brock Hopkins', selected: true }, { 'id': 7, 'name': 'Mya Hopkins', selected: true }];
+}) || _class);
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports) {
+
+module.exports = "<div cr-for=\"d in data\"> Hello! My name is {{d.name}}: {{d.id}} </div> ";
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(14)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, ":host {\n\tposition: absolute;\n\ttop: 75px;\n\tleft: 25px;\n\tbackground-color: #E6E6E6;\n\tpadding: 50px;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function(useSourceMap) {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		return this.map(function (item) {
+			var content = cssWithMappingToString(item, useSourceMap);
+			if(item[2]) {
+				return "@media " + item[2] + "{" + content + "}";
+			} else {
+				return content;
+			}
+		}).join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+	var content = item[1] || '';
+	var cssMapping = item[3];
+	if (!cssMapping) {
+		return content;
+	}
+
+	if (useSourceMap && typeof btoa === 'function') {
+		var sourceMapping = toComment(cssMapping);
+		var sourceURLs = cssMapping.sources.map(function (source) {
+			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+		});
+
+		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+	}
+
+	return [content].join('\n');
+}
+
+// Adapted from convert-source-map (MIT)
+function toComment(sourceMap) {
+	// eslint-disable-next-line no-undef
+	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+
+	return '/*# ' + data + ' */';
 }
 
 

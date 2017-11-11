@@ -1,17 +1,12 @@
-import { Component } from '../../src/decorators/component';
+import { Component } from '../../../src/decorators/component';
 
 @Component({
-	selector: 'my-test-component',
-	// templateUrl: './my-test-component.html',
-	template: `
-		<div cr-for="d in data">
-			Hello! My name is {{d.name}}: {{d.id}}
-		</div>
-	`,
-	// styleUrl: './my-test-component.css',
+	selector: 'my-test',
+	templateUrl: require('./my-test.component.html'),
+	styleUrl: require('./my-test.component.css'),
 	attributes: ['name']
 })
-class MyTestElement {
+export class MyTestComponent {
 	constructor() {
 		/** public properties */
 		this.name = this.getAttribute('name');
