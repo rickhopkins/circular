@@ -6,11 +6,15 @@ module.exports = {
 	output: {
 		filename: './index.js'
 	},
+	devtool: 'source-map',
 	module: {
 		loaders: [
 			{
 				test: /\.js$/,
-				loader: 'babel-loader',
+				use: [
+					{ loader: 'babel-loader' },
+					{ loader: 'component-loader' }
+				],
 				exclude: /node_modules/
 			},
 			{
@@ -36,6 +40,11 @@ module.exports = {
 				]
 			}
 		]
+	},
+	resolveLoader: {
+		alias: {
+			'component-loader': path.join(__dirname, 'src/webpack', 'component-loader.js')
+		}
 	},
 	resolve: {
 		extensions: ['.js']

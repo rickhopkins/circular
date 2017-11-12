@@ -2,8 +2,8 @@ import { Component } from '../../../src/decorators/component';
 
 @Component({
 	selector: 'my-test',
-	templateUrl: require('./my-test.component.html'),
-	styleUrl: require('./my-test.component.css'),
+	templateUrl: './my-test.component.html',
+	styleUrl: './my-test.component.css',
 	attributes: ['name']
 })
 export class MyTestComponent {

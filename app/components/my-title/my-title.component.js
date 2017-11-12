@@ -3,7 +3,7 @@ import { Component } from '../../../src/decorators/component';
 @Component({
 	selector: 'my-title',
 	template: `<h1>The {{title}} Family</h1>`,
-	styleUrl: require('./my-title.component.scss'),
+	styleUrl: './my-title.component.scss',
 	attributes: ['title']
 	// styles: ':host > h1 { font-size: 11px; }'
 })

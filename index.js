@@ -883,15 +883,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var MyTitleComponent = (_dec = Object(__WEBPACK_IMPORTED_MODULE_0__src_decorators_component__["a" /* Component */])({
 	selector: 'my-title',
 	template: '<h1>The {{title}} Family</h1>',
-	styleUrl: __webpack_require__(12),
+	styles: __webpack_require__(12),
 	attributes: ['title']
 	// styles: ':host > h1 { font-size: 11px; }'
 }), _dec(_class = function MyTitleComponent() {
 	_classCallCheck(this, MyTitleComponent);
 
 	this.title = this.getAttribute('title');
-
-	console.log(this);
 }) || _class);
 
 /***/ }),
@@ -1316,8 +1314,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var MyTestComponent = (_dec = Object(__WEBPACK_IMPORTED_MODULE_0__src_decorators_component__["a" /* Component */])({
 	selector: 'my-test',
-	templateUrl: __webpack_require__(14),
-	styleUrl: __webpack_require__(15),
+	template: __webpack_require__(14),
+	styles: __webpack_require__(15),
 	attributes: ['name']
 }), _dec(_class = function MyTestComponent() {
 	_classCallCheck(this, MyTestComponent);
@@ -1349,3 +1347,4 @@ exports.push([module.i, ":host {\n\tposition: absolute;\n\ttop: 75px;\n\tleft: 2
 
 /***/ })
 /******/ ]);
+//# sourceMappingURL=index.js.map
