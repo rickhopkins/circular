@@ -17,6 +17,9 @@ export function templateParser(component) {
 	if (component.styles && component.styles !== null) innerHTML = `<style>${component.styles}</style>`;
 	innerHTML += component.template;
 
+	/** take a first pass at template value replacement */
+	innerHTML = firstPass(innerHTML, component);
+
 	/** set the container html */
 	container.innerHTML = innerHTML;
 	
@@ -28,6 +31,20 @@ export function templateParser(component) {
 
 	/** return the component html */
 	return container.innerHTML;
+}
+
+/** replace all component property values */
+function firstPass(html, component) {
+	/** get the component properties */
+	var properties = Object.keys(component);
+
+	/** replace property values */
+	properties.forEach((p) => {
+		html = html.replace(`{{${p}}}`, component[p]);
+	});
+
+	/** return the html */
+	return html;
 }
 
 /** iterate over items in cr-for */
@@ -47,7 +64,7 @@ function crForIterate(crFor, html, component) {
 			var rowHTML = crFor.cloneNode(true).outerHTML;
 
 			/** search the row properties */
-			var regex = /{{d.([\w]*)}}?/gmi;
+			var regex = new RegExp(`{{${entityRef}.([\\w]*)}}?`, 'gmi');
 			var m;
 			while ((m = regex.exec(rowHTML)) !== null) {
 				/** replace the properties */

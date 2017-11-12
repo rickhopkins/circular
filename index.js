@@ -882,11 +882,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var MyTitleComponent = (_dec = Object(__WEBPACK_IMPORTED_MODULE_0__src_decorators_component__["a" /* Component */])({
 	selector: 'my-title',
-	template: '<h1>I\'m A Custom Title Component</h1>',
-	styleUrl: __webpack_require__(12)
+	template: '<h1>The {{title}} Family</h1>',
+	styleUrl: __webpack_require__(12),
+	attributes: ['title']
 	// styles: ':host > h1 { font-size: 11px; }'
 }), _dec(_class = function MyTitleComponent() {
 	_classCallCheck(this, MyTitleComponent);
+
+	this.title = this.getAttribute('title');
+
+	console.log(this);
 }) || _class);
 
 /***/ }),
@@ -962,6 +967,9 @@ function templateParser(component) {
 	if (component.styles && component.styles !== null) innerHTML = '<style>' + component.styles + '</style>';
 	innerHTML += component.template;
 
+	/** take a first pass at template value replacement */
+	innerHTML = firstPass(innerHTML, component);
+
 	/** set the container html */
 	container.innerHTML = innerHTML;
 
@@ -973,6 +981,20 @@ function templateParser(component) {
 
 	/** return the component html */
 	return container.innerHTML;
+}
+
+/** replace all component property values */
+function firstPass(html, component) {
+	/** get the component properties */
+	var properties = Object.keys(component);
+
+	/** replace property values */
+	properties.forEach(function (p) {
+		html = html.replace('{{' + p + '}}', component[p]);
+	});
+
+	/** return the html */
+	return html;
 }
 
 /** iterate over items in cr-for */
@@ -992,7 +1014,7 @@ function crForIterate(crFor, html, component) {
 			var rowHTML = crFor.cloneNode(true).outerHTML;
 
 			/** search the row properties */
-			var regex = /{{d.([\w]*)}}?/gmi;
+			var regex = new RegExp('{{' + entityRef + '.([\\w]*)}}?', 'gmi');
 			var m;
 			while ((m = regex.exec(rowHTML)) !== null) {
 				/** replace the properties */
@@ -1302,14 +1324,14 @@ var MyTestComponent = (_dec = Object(__WEBPACK_IMPORTED_MODULE_0__src_decorators
 
 	/** public properties */
 	this.name = this.getAttribute('name');
-	this.data = [{ 'id': 0, 'name': 'Rick Hopkins', selected: true }, { 'id': 1, 'name': 'Nicole Hopkins', selected: true }, { 'id': 2, 'name': 'Derek Hopkins', selected: true }, { 'id': 3, 'name': 'Grace Hopkins', selected: true }, { 'id': 4, 'name': 'Jack Hopkins', selected: true }, { 'id': 5, 'name': 'Nevaeh Hopkins', selected: true }, { 'id': 6, 'name': 'Brock Hopkins', selected: true }, { 'id': 7, 'name': 'Mya Hopkins', selected: true }];
+	this.data = [{ 'id': 0, 'name': 'John Doe', age: 38, selected: true }, { 'id': 1, 'name': 'Jane Doe', age: 38, selected: true }, { 'id': 2, 'name': 'Billy Doe', age: 14, selected: true }, { 'id': 3, 'name': 'Samantha Doe', age: 12, selected: true }, { 'id': 4, 'name': 'Jeremiah Doe', age: 11, selected: true }, { 'id': 5, 'name': 'Susie Doe', age: 9, selected: true }, { 'id': 6, 'name': 'Ezekiel Doe', age: 7, selected: true }, { 'id': 7, 'name': 'Molly Doe', age: 6, selected: true }];
 }) || _class);
 
 /***/ }),
 /* 14 */
 /***/ (function(module, exports) {
 
-module.exports = "<slot></slot> <div cr-for=\"d in data\"> Hello! My name is {{d.name}}: {{d.id}} </div>";
+module.exports = "<slot></slot> <div cr-for=\"d in data\"> Hello! My name is {{d.name}} and I am {{d.age}} years old. </div>";
 
 /***/ }),
 /* 15 */
