@@ -37,7 +37,11 @@ export function Component(config) {
 				}
 
 				/** set styles */
-				if (config.styleUrl !== null) component.prototype.styles = config.styleUrl;
+				if (config.styles && config.styles !== null) {
+					component.prototype.styles = config.styles;
+				} else if (config.styleUrl && config.styleUrl !== null) {
+					component.prototype.styles = config.styleUrl;
+				}
 
 				/** initialize the component and build */
 				this.component = new component();

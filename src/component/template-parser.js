@@ -1,3 +1,5 @@
+import { debug } from "util";
+
 /** attributes we look for */
 var circularAttrs = {
 	'cr-for': '',
@@ -12,17 +14,51 @@ export function templateParser(component) {
 
 	/** check for styles */
 	var innerHTML = '';
-	if (component.styles !== null) innerHTML = `<style>${component.styles}</style>`;
+	if (component.styles && component.styles !== null) innerHTML = `<style>${component.styles}</style>`;
 	innerHTML += component.template;
+
+	/** set the container html */
 	container.innerHTML = innerHTML;
+	
+	/** look for cr-for attributes */
+	var crFor = container.content.querySelector('[cr-for]');
+	if (crFor && crFor !== null) {
+		container.innerHTML = crForIterate(crFor, innerHTML, component);
+	}
 
-	// var crFor = container.content.querySelector('[cr-for]');
-	// console.log(crFor);
-
-	// var crForAttrVal = crFor.getAttribute('cr-for');
-	// console.log(crForAttrVal);
-
-	console.log(component);
-
+	/** return the component html */
 	return container.innerHTML;
+}
+
+/** iterate over items in cr-for */
+function crForIterate(crFor, html, component) {
+	/** get the cr-for attribute value expression */
+	var crForAttrVal = crFor.getAttribute('cr-for').split(' ');
+	var entityRef = crForAttrVal[0];
+	var entityProp = crForAttrVal[2];
+
+	/** cycle over the property */
+	var crForHTML = '';
+	
+	/** check the entityProperty type */
+	if (Array.isArray(component[entityProp])) {
+		component[entityProp].forEach((row, i) => {
+			/** add html for the iteration */
+			var rowHTML = crFor.cloneNode(true).outerHTML;
+
+			/** search the row properties */
+			var regex = /{{d.([\w]*)}}?/gmi;
+			var m;
+			while ((m = regex.exec(rowHTML)) !== null) {
+				/** replace the properties */
+				rowHTML = rowHTML.replace(m[0], row[m[1]]);
+			}
+
+			/** add the html to the crForHtml */
+			crForHTML += rowHTML;
+		});
+	}
+
+	/** replace the crFor element with the rows */
+	return html.replace(crFor.outerHTML, crForHTML);
 }

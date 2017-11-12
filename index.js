@@ -60,113 +60,11 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = Component;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__component_extend_component__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_util__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_util___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_util__);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-function _CustomElement() {
-	return Reflect.construct(HTMLElement, [], this.__proto__.constructor);
-}
-
-;
-Object.setPrototypeOf(_CustomElement.prototype, HTMLElement.prototype);
-Object.setPrototypeOf(_CustomElement, HTMLElement);
-/** get the component extender */
-
-
-
-/** export the decorator */
-function Component(config) {
-	return function (component) {
-		/** extend the component */
-		Object(__WEBPACK_IMPORTED_MODULE_0__component_extend_component__["a" /* extendComponent */])(component);
-
-		/** create the class */
-		var componentEl = function (_CustomElement2) {
-			_inherits(componentEl, _CustomElement2);
-
-			_createClass(componentEl, null, [{
-				key: 'observedAttributes',
-
-				/** static array of observed attributes */
-				get: function get() {
-					return config.attributes || [];
-				}
-
-				/** constructor */
-
-			}]);
-
-			function componentEl() {
-				_classCallCheck(this, componentEl);
-
-				/** attach the shadow dom */
-				var _this = _possibleConstructorReturn(this, (componentEl.__proto__ || Object.getPrototypeOf(componentEl)).call(this));
-				/** initialize the base class */
-
-
-				_this.attachShadow({ mode: 'open' });
-
-				/** public properties */
-				_this.styleUrl = config.styleUrl || null;
-
-				/** add reference to the component */
-				component.prototype.componentEl = _this;
-
-				/** set the template */
-				if (config.template && config.template !== null) {
-					component.prototype.template = config.template;
-				} else if (config.templateUrl && config.templateUrl !== null) {
-					component.prototype.template = config.templateUrl;
-				} else {
-					throw 'No template specified for component';
-				}
-
-				/** set styles */
-				if (config.styleUrl !== null) component.prototype.styles = config.styleUrl;
-
-				/** initialize the component and build */
-				_this.component = new component();
-				_this.component.build();
-				return _this;
-			}
-
-			/** respond to attribute changes */
-
-
-			_createClass(componentEl, [{
-				key: 'attributeChangedCallback',
-				value: function attributeChangedCallback(attr, oldValue, newValue) {
-					console.log('Attribute "' + attr + '" updated from ' + oldValue + ' to ' + newValue);
-				}
-			}]);
-
-			return componentEl;
-		}(_CustomElement);
-
-		/** register the custom component */
-		customElements.define(config.selector, componentEl);
-	};
-}
-
-/***/ }),
-/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -694,7 +592,7 @@ function isPrimitive(arg) {
 }
 exports.isPrimitive = isPrimitive;
 
-exports.isBuffer = __webpack_require__(9);
+exports.isBuffer = __webpack_require__(10);
 
 function objectToString(o) {
   return Object.prototype.toString.call(o);
@@ -738,7 +636,7 @@ exports.log = function() {
  *     prototype.
  * @param {function} superCtor Constructor function to inherit prototype from.
  */
-exports.inherits = __webpack_require__(10);
+exports.inherits = __webpack_require__(11);
 
 exports._extend = function(origin, add) {
   // Don't do anything if add isn't an object
@@ -756,15 +654,194 @@ function hasOwnProperty(obj, prop) {
   return Object.prototype.hasOwnProperty.call(obj, prop);
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7), __webpack_require__(8)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(9)))
 
 /***/ }),
-/* 2 */
+/* 1 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_index__ = __webpack_require__(3);
+/* harmony export (immutable) */ __webpack_exports__["a"] = Component;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__component_extend_component__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_util__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_util___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_util__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _CustomElement() {
+	return Reflect.construct(HTMLElement, [], this.__proto__.constructor);
+}
+
+;
+Object.setPrototypeOf(_CustomElement.prototype, HTMLElement.prototype);
+Object.setPrototypeOf(_CustomElement, HTMLElement);
+/** get the component extender */
+
+
+
+/** export the decorator */
+function Component(config) {
+	return function (component) {
+		/** extend the component */
+		Object(__WEBPACK_IMPORTED_MODULE_0__component_extend_component__["a" /* extendComponent */])(component);
+
+		/** create the class */
+		var componentEl = function (_CustomElement2) {
+			_inherits(componentEl, _CustomElement2);
+
+			_createClass(componentEl, null, [{
+				key: 'observedAttributes',
+
+				/** static array of observed attributes */
+				get: function get() {
+					return config.attributes || [];
+				}
+
+				/** constructor */
+
+			}]);
+
+			function componentEl() {
+				_classCallCheck(this, componentEl);
+
+				/** attach the shadow dom */
+				var _this = _possibleConstructorReturn(this, (componentEl.__proto__ || Object.getPrototypeOf(componentEl)).call(this));
+				/** initialize the base class */
+
+
+				_this.attachShadow({ mode: 'open' });
+
+				/** public properties */
+				_this.styleUrl = config.styleUrl || null;
+
+				/** add reference to the component */
+				component.prototype.componentEl = _this;
+
+				/** set the template */
+				if (config.template && config.template !== null) {
+					component.prototype.template = config.template;
+				} else if (config.templateUrl && config.templateUrl !== null) {
+					component.prototype.template = config.templateUrl;
+				} else {
+					throw 'No template specified for component';
+				}
+
+				/** set styles */
+				if (config.styles && config.styles !== null) {
+					component.prototype.styles = config.styles;
+				} else if (config.styleUrl && config.styleUrl !== null) {
+					component.prototype.styles = config.styleUrl;
+				}
+
+				/** initialize the component and build */
+				_this.component = new component();
+				_this.component.build();
+				return _this;
+			}
+
+			/** respond to attribute changes */
+
+
+			_createClass(componentEl, [{
+				key: 'attributeChangedCallback',
+				value: function attributeChangedCallback(attr, oldValue, newValue) {
+					console.log('Attribute "' + attr + '" updated from ' + oldValue + ' to ' + newValue);
+				}
+			}]);
+
+			return componentEl;
+		}(_CustomElement);
+
+		/** register the custom component */
+		customElements.define(config.selector, componentEl);
+	};
+}
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function(useSourceMap) {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		return this.map(function (item) {
+			var content = cssWithMappingToString(item, useSourceMap);
+			if(item[2]) {
+				return "@media " + item[2] + "{" + content + "}";
+			} else {
+				return content;
+			}
+		}).join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+	var content = item[1] || '';
+	var cssMapping = item[3];
+	if (!cssMapping) {
+		return content;
+	}
+
+	if (useSourceMap && typeof btoa === 'function') {
+		var sourceMapping = toComment(cssMapping);
+		var sourceURLs = cssMapping.sources.map(function (source) {
+			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+		});
+
+		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+	}
+
+	return [content].join('\n');
+}
+
+// Adapted from convert-source-map (MIT)
+function toComment(sourceMap) {
+	// eslint-disable-next-line no-undef
+	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+
+	return '/*# ' + data + ' */';
+}
 
 
 /***/ }),
@@ -772,8 +849,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_my_title_my_title_component__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_my_test_my_test_component__ = __webpack_require__(11);
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_index__ = __webpack_require__(4);
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_my_title_my_title_component__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_my_test_my_test_component__ = __webpack_require__(13);
 /* unused harmony reexport MyTitleComponent */
 /* unused harmony reexport MyTestComponent */
 
@@ -782,12 +868,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* unused harmony export MyTitleComponent */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__src_decorators_component__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__src_decorators_component__ = __webpack_require__(1);
 var _dec, _class;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -796,19 +882,21 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var MyTitleComponent = (_dec = Object(__WEBPACK_IMPORTED_MODULE_0__src_decorators_component__["a" /* Component */])({
 	selector: 'my-title',
-	template: '<h1>I\'m A Custom Title Component</h1>'
+	template: '<h1>I\'m A Custom Title Component</h1>',
+	styleUrl: __webpack_require__(12)
+	// styles: ':host > h1 { font-size: 11px; }'
 }), _dec(_class = function MyTitleComponent() {
 	_classCallCheck(this, MyTitleComponent);
 }) || _class);
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = extendComponent;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__template_parser__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_util__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__template_parser__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_util__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_util___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_util__);
 /** get the html template parser */
 
@@ -848,11 +936,15 @@ function extendComponent(component) {
 }
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = templateParser;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_util__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_util___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_util__);
+
+
 /** attributes we look for */
 var circularAttrs = {
 	'cr-for': '',
@@ -867,23 +959,57 @@ function templateParser(component) {
 
 	/** check for styles */
 	var innerHTML = '';
-	if (component.styles !== null) innerHTML = '<style>' + component.styles + '</style>';
+	if (component.styles && component.styles !== null) innerHTML = '<style>' + component.styles + '</style>';
 	innerHTML += component.template;
+
+	/** set the container html */
 	container.innerHTML = innerHTML;
 
-	// var crFor = container.content.querySelector('[cr-for]');
-	// console.log(crFor);
+	/** look for cr-for attributes */
+	var crFor = container.content.querySelector('[cr-for]');
+	if (crFor && crFor !== null) {
+		container.innerHTML = crForIterate(crFor, innerHTML, component);
+	}
 
-	// var crForAttrVal = crFor.getAttribute('cr-for');
-	// console.log(crForAttrVal);
-
-	console.log(component);
-
+	/** return the component html */
 	return container.innerHTML;
 }
 
+/** iterate over items in cr-for */
+function crForIterate(crFor, html, component) {
+	/** get the cr-for attribute value expression */
+	var crForAttrVal = crFor.getAttribute('cr-for').split(' ');
+	var entityRef = crForAttrVal[0];
+	var entityProp = crForAttrVal[2];
+
+	/** cycle over the property */
+	var crForHTML = '';
+
+	/** check the entityProperty type */
+	if (Array.isArray(component[entityProp])) {
+		component[entityProp].forEach(function (row, i) {
+			/** add html for the iteration */
+			var rowHTML = crFor.cloneNode(true).outerHTML;
+
+			/** search the row properties */
+			var regex = /{{d.([\w]*)}}?/gmi;
+			var m;
+			while ((m = regex.exec(rowHTML)) !== null) {
+				/** replace the properties */
+				rowHTML = rowHTML.replace(m[0], row[m[1]]);
+			}
+
+			/** add the html to the crForHtml */
+			crForHTML += rowHTML;
+		});
+	}
+
+	/** replace the crFor element with the rows */
+	return html.replace(crFor.outerHTML, crForHTML);
+}
+
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports) {
 
 var g;
@@ -910,7 +1036,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -1100,7 +1226,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports) {
 
 module.exports = function isBuffer(arg) {
@@ -1111,7 +1237,7 @@ module.exports = function isBuffer(arg) {
 }
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports) {
 
 if (typeof Object.create === 'function') {
@@ -1140,12 +1266,26 @@ if (typeof Object.create === 'function') {
 
 
 /***/ }),
-/* 11 */
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, ":host h1 {\n  margin: 5px 0px;\n  padding: 0px; }\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* unused harmony export MyTestComponent */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__src_decorators_component__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__src_decorators_component__ = __webpack_require__(1);
 var _dec, _class;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1154,8 +1294,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var MyTestComponent = (_dec = Object(__WEBPACK_IMPORTED_MODULE_0__src_decorators_component__["a" /* Component */])({
 	selector: 'my-test',
-	templateUrl: __webpack_require__(12),
-	styleUrl: __webpack_require__(13),
+	templateUrl: __webpack_require__(14),
+	styleUrl: __webpack_require__(15),
 	attributes: ['name']
 }), _dec(_class = function MyTestComponent() {
 	_classCallCheck(this, MyTestComponent);
@@ -1166,16 +1306,16 @@ var MyTestComponent = (_dec = Object(__WEBPACK_IMPORTED_MODULE_0__src_decorators
 }) || _class);
 
 /***/ }),
-/* 12 */
+/* 14 */
 /***/ (function(module, exports) {
 
-module.exports = "<div cr-for=\"d in data\"> Hello! My name is {{d.name}}: {{d.id}} </div> ";
+module.exports = "<slot></slot> <div cr-for=\"d in data\"> Hello! My name is {{d.name}}: {{d.id}} </div>";
 
 /***/ }),
-/* 13 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(14)(undefined);
+exports = module.exports = __webpack_require__(2)(undefined);
 // imports
 
 
@@ -1183,88 +1323,6 @@ exports = module.exports = __webpack_require__(14)(undefined);
 exports.push([module.i, ":host {\n\tposition: absolute;\n\ttop: 75px;\n\tleft: 25px;\n\tbackground-color: #E6E6E6;\n\tpadding: 50px;\n}", ""]);
 
 // exports
-
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports) {
-
-/*
-	MIT License http://www.opensource.org/licenses/mit-license.php
-	Author Tobias Koppers @sokra
-*/
-// css base code, injected by the css-loader
-module.exports = function(useSourceMap) {
-	var list = [];
-
-	// return the list of modules as css string
-	list.toString = function toString() {
-		return this.map(function (item) {
-			var content = cssWithMappingToString(item, useSourceMap);
-			if(item[2]) {
-				return "@media " + item[2] + "{" + content + "}";
-			} else {
-				return content;
-			}
-		}).join("");
-	};
-
-	// import a list of modules into the list
-	list.i = function(modules, mediaQuery) {
-		if(typeof modules === "string")
-			modules = [[null, modules, ""]];
-		var alreadyImportedModules = {};
-		for(var i = 0; i < this.length; i++) {
-			var id = this[i][0];
-			if(typeof id === "number")
-				alreadyImportedModules[id] = true;
-		}
-		for(i = 0; i < modules.length; i++) {
-			var item = modules[i];
-			// skip already imported module
-			// this implementation is not 100% perfect for weird media query combinations
-			//  when a module is imported multiple times with different media queries.
-			//  I hope this will never occur (Hey this way we have smaller bundles)
-			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-				if(mediaQuery && !item[2]) {
-					item[2] = mediaQuery;
-				} else if(mediaQuery) {
-					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-				}
-				list.push(item);
-			}
-		}
-	};
-	return list;
-};
-
-function cssWithMappingToString(item, useSourceMap) {
-	var content = item[1] || '';
-	var cssMapping = item[3];
-	if (!cssMapping) {
-		return content;
-	}
-
-	if (useSourceMap && typeof btoa === 'function') {
-		var sourceMapping = toComment(cssMapping);
-		var sourceURLs = cssMapping.sources.map(function (source) {
-			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
-		});
-
-		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
-	}
-
-	return [content].join('\n');
-}
-
-// Adapted from convert-source-map (MIT)
-function toComment(sourceMap) {
-	// eslint-disable-next-line no-undef
-	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
-	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
-
-	return '/*# ' + data + ' */';
-}
 
 
 /***/ })
